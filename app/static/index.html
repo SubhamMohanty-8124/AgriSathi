@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173d2b"><meta name="description" content="AgriSathi farm decision and risk management workspace">
+<link rel="manifest" href="/static/manifest.webmanifest"><link rel="stylesheet" href="/static/styles.css">
+<title>AgriSathi — Farm intelligence workspace</title></head>
+<body>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="#"><span class="brand-mark">A</span><span><b>AgriSathi</b><small>FARM INTELLIGENCE</small></span></a>
+  <div class="workspace-label">WORKSPACE</div>
+  <nav id="nav">
+    <button class="nav-link active" data-page="overview"><span>▦</span> Overview</button>
+    <button class="nav-link" data-page="fields"><span>▤</span> Field zones</button>
+    <button class="nav-link" data-page="intelligence"><span>◈</span> Field intelligence</button>
+    <button class="nav-link" data-page="assistant"><span>✳</span> Crop assistant</button>
+    <button class="nav-link" data-page="weather"><span>☼</span> Weather</button>
+    <button class="nav-link" data-page="irrigation"><span>◌</span> Irrigation review</button>
+    <button class="nav-link" data-page="reports"><span>▧</span> Reports</button>
+    <button class="nav-link" data-page="tasks"><span>✓</span> Farm calendar</button>
+    <button class="nav-link" data-page="history"><span>◷</span> Decision history</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="status-dot"></div><span>Local workspace active</span><small>Prototype environment</small></div>
+</aside>
+<main class="main">
+<header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div><div class="eyebrow">TECHKSHETRA / NIST UNIVERSITY</div><div class="top-title" id="pageTitle">Overview</div></div>
+<div class="top-actions"><span class="live-pill"><i></i> SYSTEM ONLINE</span><button class="icon-btn" id="exportBtn" title="Export your data">⇩</button></div></header>
+<div class="content">
+<section class="page active" id="page-overview">
+  <div class="welcome-row"><div><div class="eyebrow">PADDY FARM WORKSPACE</div><h1>Good day. Let's review your farm.</h1><p class="muted">A clear view of field conditions, observations and upcoming work.</p></div><button class="btn primary" data-go="fields">＋ Add field zone</button></div>
+  <div class="notice"><b>Demo workspace</b><span>Starter records are illustrative. Replace them with your own field data before making decisions.</span></div>
+  <div class="stats-grid" id="stats"></div>
+  <div class="two-col">
+    <div class="panel"><div class="panel-head"><div><h2>Field status</h2><p>Latest recorded conditions by zone</p></div><button class="text-btn" data-go="intelligence">View intelligence →</button></div><div id="fieldSummary"></div></div>
+    <div class="panel"><div class="panel-head"><div><h2>Upcoming work</h2><p>Tasks that need attention</p></div><button class="text-btn" data-go="tasks">Open calendar →</button></div><div id="taskSummary"></div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h2>Recent activity</h2><p>Changes recorded in this workspace</p></div><button class="text-btn" data-go="history">Full history →</button></div><div id="recentEvents"></div></div>
+</section>
+
+<section class="page" id="page-fields">
+ <div class="page-heading"><div><div class="eyebrow">FARM STRUCTURE</div><h1>Field zones</h1><p class="muted">Organise farms and paddy plots separately so each field has its own observations.</p></div><button class="btn primary" id="addZoneBtn">＋ New field zone</button></div>
+ <div class="panel"><div class="panel-head"><div><h2>Your fields</h2><p>Update the field record when conditions change.</p></div></div><div id="zonesTable"></div></div>
+ <div class="panel"><div class="panel-head"><div><h2>Farm details</h2><p>Farm workspaces currently stored in this database.</p></div><button class="btn secondary" id="addFarmBtn">＋ Add farm</button></div><div id="farmsList"></div></div>
+</section>
+
+<section class="page" id="page-intelligence">
+ <div class="page-heading"><div><div class="eyebrow">RULE-BASED FIELD REVIEW</div><h1>Field intelligence</h1><p class="muted">Transparent prioritisation from recorded moisture and observations.</p></div></div>
+ <div class="notice warning"><b>Important:</b><span>These are configurable demonstration thresholds, not agronomic diagnosis or validated crop recommendations. Confirm conditions in the field.</span></div>
+ <div id="riskCards" class="risk-grid"></div>
+ <div class="panel"><div class="panel-head"><div><h2>Record a field reading</h2><p>Enter a manual observation or a reading from a verified external source.</p></div></div>
+ <form id="readingForm" class="form-grid"><label>Field zone<select id="readingZone" required></select></label><label>Soil moisture (%)<input id="readingMoisture" type="number" min="0" max="100" step=".1" required></label><label>Temperature (°C)<input id="readingTemp" type="number" step=".1"></label><label>Humidity (%)<input id="readingHumidity" type="number" min="0" max="100" step=".1"></label><label>Reading source<select id="readingSource"><option value="manual">Manual entry</option><option value="sensor_import">External sensor import</option></select></label><div class="form-actions"><button class="btn primary">Save reading</button></div></form></div>
+</section>
+
+<section class="page" id="page-assistant">
+ <div class="page-heading"><div><div class="eyebrow">AI-ASSISTED VISUAL TRIAGE</div><h1>Crop assistant</h1><p class="muted">Upload a paddy crop image for cautious visual observations and possible causes.</p></div></div>
+ <div class="notice warning"><b>Safety boundary</b><span>This is not a confirmed disease diagnosis. It will not prescribe pesticides or chemical dosages. AI must be configured on the server before analysis works.</span></div>
+ <div class="two-col">
+  <div class="panel"><div class="panel-head"><div><h2>Analyse a crop image</h2><p>Use a clear, well-lit image of the affected plant.</p></div></div>
+   <form id="analysisForm"><label>Crop<select id="analysisCrop"><option>Paddy</option></select></label><label>Field notes<textarea id="analysisNotes" rows="3" placeholder="Describe what you observed, when it started, and which part of the plant is affected."></textarea></label>
+   <div class="upload-box"><input type="file" id="cropImage" accept="image/jpeg,image/png,image/webp" required><small>JPG, PNG or WebP · Maximum 8 MB</small><div id="imagePreview"></div></div><button class="btn primary full">Run AI visual triage</button></form>
+  </div>
+  <div class="panel result-panel"><div class="panel-head"><div><h2>Analysis result</h2><p>Results appear here after successful provider response.</p></div></div><div id="analysisResult" class="empty-state">No analysis has been run in this session.</div></div>
+ </div>
+</section>
+
+<section class="page" id="page-weather">
+ <div class="page-heading"><div><div class="eyebrow">EXTERNAL WEATHER CONTEXT</div><h1>Weather intelligence</h1><p class="muted">Forecast context for planning. Weather is not a substitute for field inspection.</p></div><button class="btn secondary" id="refreshWeather">↻ Refresh</button></div>
+ <div class="panel"><div class="weather-form"><label>Latitude<input id="lat" type="number" step=".0001" value="19.31"></label><label>Longitude<input id="lon" type="number" step=".0001" value="84.79"></label><button class="btn primary" id="loadWeather">Get weather</button></div><div id="weatherResult" class="empty-state">Load current weather and a 3-day forecast.</div></div>
+</section>
+
+<section class="page" id="page-irrigation">
+ <div class="page-heading"><div><div class="eyebrow">DECISION SUPPORT</div><h1>Irrigation review</h1><p class="muted">Combine recorded field moisture with manually confirmed rainfall context.</p></div></div>
+ <div class="panel"><form id="irrigationForm" class="form-grid"><label>Field zone<select id="irrigationZone"></select></label><label>Rainfall context<select id="rainContext"><option value="unknown">Not checked</option><option value="expected">Rain expected</option><option value="not_expected">No rain expected</option></select></label><div class="form-actions"><button class="btn primary">Review conditions</button></div></form><div id="irrigationResult"></div></div>
+ <div class="notice warning"><b>Decision support only.</b><span>Crop stage, soil type, bunding, water availability and local agronomic guidance matter. Do not irrigate solely from this simplified review.</span></div>
+</section>
+
+<section class="page" id="page-reports">
+ <div class="page-heading"><div><div class="eyebrow">FIELD DOCUMENTATION</div><h1>Reports & observations</h1><p class="muted">Capture written notes, photos and voice recordings for follow-up.</p></div><button class="btn primary" id="newReportBtn">＋ New report</button></div>
+ <div class="panel" id="reportComposer" hidden><div class="panel-head"><div><h2>Create field report</h2><p>Attach evidence and save it to the farm record.</p></div><button class="icon-btn" id="closeReport">✕</button></div>
+ <form id="reportForm"><div class="form-grid"><label>Field zone<select id="reportZone"></select></label><label>Observation category<select id="reportCategory"><option>General observation</option><option>Water / moisture</option><option>Leaf appearance</option><option>Pest observation</option><option>Growth stage</option><option>Weather impact</option></select></label></div>
+ <label>Notes<textarea id="reportNotes" rows="3" placeholder="What did you observe? Include date, location and changes since last inspection."></textarea></label>
+ <div class="capture-grid"><div class="capture-card"><b>Camera / photo</b><div class="capture-actions"><button type="button" class="btn secondary" id="openCamera">Open camera</button><label class="btn secondary file-label">Choose photo<input id="reportPhoto" type="file" accept="image/*" capture="environment"></label></div><video id="cameraVideo" autoplay playsinline hidden></video><canvas id="cameraCanvas" hidden></canvas><img id="photoPreview" hidden alt="Selected field photo"><button type="button" class="text-btn" id="takePhoto" hidden>Capture photo</button><button type="button" class="text-btn" id="stopCamera" hidden>Close camera</button></div>
+ <div class="capture-card"><b>Voice note</b><div class="capture-actions"><button type="button" class="btn secondary" id="startRecording">● Record</button><button type="button" class="btn secondary" id="stopRecording" disabled>■ Stop</button></div><div id="recordStatus" class="muted small">No recording</div><audio id="audioPreview" controls hidden></audio></div></div>
+ <div class="form-actions"><button class="btn primary">Save report</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h2>Saved reports</h2><p>Field observations stored in your database.</p></div></div><div id="reportsList"></div></div>
+</section>
+
+<section class="page" id="page-tasks">
+ <div class="page-heading"><div><div class="eyebrow">FIELD OPERATIONS</div><h1>Farm calendar</h1><p class="muted">Plan work, assign it to a field and record completion.</p></div></div>
+ <div class="panel"><div class="panel-head"><div><h2>Add an activity</h2><p>Keep tasks specific and measurable.</p></div></div><form id="taskForm" class="form-grid"><label>Task title<input id="taskTitle" required placeholder="e.g. Inspect north bund"></label><label>Field zone<select id="taskZone"></select></label><label>Due date<input id="taskDue" type="date"></label><label>Priority<select id="taskPriority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select></label><label class="span-2">Notes<input id="taskNotes" placeholder="Optional details"></label><div class="form-actions"><button class="btn primary">Add activity</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h2>Activity list</h2><p>Complete, reopen or remove tasks.</p></div></div><div id="tasksList"></div></div>
+</section>
+
+<section class="page" id="page-history">
+ <div class="page-heading"><div><div class="eyebrow">AUDIT TRAIL</div><h1>Decision history</h1><p class="muted">A chronological record of changes and observations.</p></div></div>
+ <div class="panel"><div id="historyList"></div></div>
+</section>
+<footer>AgriSathi · TECHKSHETRA · HACK-KALP HK26-PS-13 <span>Decision support prototype · Verify field conditions before acting</span></footer>
+</div></main></div>
+<div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="zoneModal" hidden><div class="modal"><div class="panel-head"><div><h2 id="zoneModalTitle">New field zone</h2><p>Enter the latest known field details.</p></div><button class="icon-btn" id="closeZoneModal">✕</button></div>
+<form id="zoneForm"><input id="zoneId" type="hidden"><label>Farm<select id="zoneFarm" required></select></label><label>Field name<input id="zoneName" required></label><div class="form-grid"><label>Crop<input value="Paddy" id="zoneCrop" required></label><label>Variety<input id="zoneVariety" placeholder="Optional"></label><label>Area (acres)<input id="zoneArea" type="number" min="0" step=".01" value="0"></label><label>Moisture (%)<input id="zoneMoisture" type="number" min="0" max="100" step=".1"></label></div><label>Observation<select id="zoneObservation"><option value="normal">Normal</option><option value="dry">Dry</option><option value="wet">Wet / standing water</option><option value="unknown">Unknown / not inspected</option></select></label><label>Notes<textarea id="zoneNotes" rows="2"></textarea></label><div class="form-actions"><button class="btn secondary" type="button" id="cancelZone">Cancel</button><button class="btn primary">Save field</button></div></form></div></div>
+<div class="modal-backdrop" id="farmModal" hidden><div class="modal"><div class="panel-head"><div><h2>Add farm</h2><p>Create a workspace for your fields.</p></div><button class="icon-btn" id="closeFarmModal">✕</button></div><form id="farmForm"><label>Farm name<input id="farmName" required></label><div class="form-grid"><label>Village<input id="farmVillage"></label><label>District<input id="farmDistrict"></label><label>State<input id="farmState" value="Odisha"></label><label>Area (acres)<input id="farmArea" type="number" min="0" step=".01" value="0"></label></div><div class="form-actions"><button class="btn primary">Create farm</button></div></form></div></div>
+<script src="/static/app.js"></script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/static/sw.js').catch(()=>{});}</script>
+</body></html>
