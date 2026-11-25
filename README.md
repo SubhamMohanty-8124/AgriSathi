@@ -1,4 +1,4 @@
-# AgriSathi — Round 3 Software Build
+# AgriSathi — Intelligent Farm Decision & Risk Management System
 
 **Team:** TECHKSHETRA · NIST University  
 **Challenge:** HACK-KALP HK26-PS-13 — 5G-Enabled Smart Farming Assistant  
@@ -126,7 +126,7 @@ This is a runnable hackathon MVP, not a production multi-tenant SaaS yet.
 
 Before deploying publicly, add authentication, CSRF/rate limits as appropriate, strict upload validation, malware scanning, secure media access, PostgreSQL, object storage, backups, monitoring and privacy/consent policies. Restrict CORS and protect all farmer records.
 
-## Round 3 demo flow (5–7 minutes)
+## Prototype Demo flow (5–7 minutes)
 
 1. Open the dashboard and explain sample-data labels.
 2. Create a farm field zone.
